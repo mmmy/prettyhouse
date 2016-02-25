@@ -1,4 +1,4 @@
-var priceChart = dc.pieChart('#price-dimension'),
+var priceChart = dc.barChart('#price-dimension'),
 	totalChart = dc.barChart('#total-dimension');
 $(function(){
 	d3.csv('../data/cities/2016-1-23/深圳.csv', function(error,data){
@@ -19,7 +19,7 @@ $(function(){
 		console.log(data);
 
 		var houses 			= crossfilter(data),
-			priceDimension 	= houses.dimension(function(d){ return Math.round(d.price/1000) * 1000; }),
+			priceDimension 	= houses.dimension(function(d){ return Math.round(d.price/1000); }),
 			totalDimension 	= houses.dimension(function(d){ return Math.round(d.total/100) * 100; });
 
 		var priceCountGroup = priceDimension.group();
@@ -28,12 +28,12 @@ $(function(){
 		window.priceDimension = priceDimension;
 		window.totalDimension = totalDimension;
 
-		priceChart.width(400)
-					.height(400)
+		priceChart.width(1000)
+					.height(200)
+					.x(d3.scale.linear().domain([0, 100]))
 					.dimension(priceDimension)
 					.group(priceCountGroup)
-					.innerRadius(50);
-		priceChart.render();
+					//.innerRadius(50);
 
 		totalChart.width(500)
 					.height(200)
@@ -43,8 +43,28 @@ $(function(){
 					.brushOn(true)
 					.dimension(totalDimension)
 					.group(totalCountGroup);
-		totalChart.render();
 
+		dc.renderAll();
 
+		drawTable(data);
 	});
 });
+
+function drawTable(jsonArr){
+	if(jsonArr.length < 1) return;
+	var columns = _.keys(jsonArr[0]).map(function(key){ return {'title': key}; });
+		columns = columns.slice(0, columns.length-2);
+	var data = jsonArr.map(function(obj){
+		var values = _.values(obj);
+		return values.slice(0, values.length-2);
+	});
+
+	$('#data_table').DataTable({
+			'data': data,
+			"columns": columns,
+			'scrollY': '400px',
+			'scrollCollapse': true,
+			'paging': true,
+			'scroller': true
+	});
+}
