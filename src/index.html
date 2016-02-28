@@ -5,17 +5,23 @@
 	<title>prettyhouse</title>
 	<link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="../node_modules/dc/dc.min.css" />
-	<link rel="stylesheet" type="text/css" href="../node_modules/datatables.net-dt/css/jquery.dataTables.css" />
-	<link rel="stylesheet" type="text/css" href="../node_modules/datatables.net-scroller-dt/css/scroller.dataTables.css" />
+	<link rel="stylesheet" type="text/css" href="../node_modules/ag-grid/dist/styles/ag-grid.css" />
+	<link rel="stylesheet" type="text/css" href="../node_modules/ag-grid/dist/styles/theme-fresh.css" />
+	<!-- <link rel="stylesheet" type="text/css" href="../node_modules/datatables.net-dt/css/jquery.dataTables.css" /> -->
+	<!-- <link rel="stylesheet" type="text/css" href="../node_modules/datatables.net-scroller-dt/css/scroller.dataTables.css" /> -->
 	<!-- <link rel="stylesheet" type="text/css" href="./dc.css" /> -->
 	<script type="text/javascript" src="../node_modules/angular/angular.min.js"></script>
 	<script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
-	<script type="text/javascript" src="../node_modules/datatables.net/js/jquery.dataTables.js"></script>
-	<script type="text/javascript" src="../node_modules/datatables.net-scroller/js/dataTables.scroller.js"></script>
+	<!-- <script type="text/javascript" src="../node_modules/datatables.net/js/jquery.dataTables.js"></script> -->
+	<!-- <script type="text/javascript" src="../node_modules/datatables.net-scroller/js/dataTables.scroller.js"></script> -->
+
+	<script type="text/javascript" src="../node_modules/ag-grid/dist/ag-grid.min.noStyle.js"></script>
 	<script type="text/javascript" src="../node_modules/d3/d3.min.js"></script>
 	<script type="text/javascript" src="../node_modules/crossfilter/crossfilter.min.js"></script>
 	<script type="text/javascript" src="../node_modules/dc/dc.min.js"></script>
 	<script type="text/javascript" src="../node_modules/underscore/underscore-min.js"></script>
+	<!-- <link rel="stylesheet" type="text/css" href="../node_modules/ag-grid/dist/ag-grid.js"> -->
+	<script src="http://webapi.amap.com/maps?v=1.3&key=ba14b8174b3bcfd1ea91df1bf44c71d9"/>
 </head>
 <body>
 	<div class="container">
@@ -26,10 +32,19 @@
 	      <h1>Hello {{yourName}}!</h1>
 	    </div>
 	    <div id='dc-container'>
+	    	<div class="well" style="height:120px">
+	    		<div id="category_title"></div>
+	    		<div id="category_price"></div>
+	    		<div id="category_total"></div>
+	    		<div id="category_type"></div>
+	    	</div>
 			<div id='price-dimension'></div>
 			<div id='total-dimension'></div>
-			<table id='data_table'></table>
+			<div id="average_price" class="well" style="clear:both"></div>
+			<div id='data_table' style="height:500px; clear:both" class="ag-fresh"></div>
+			<table id='dc_data_table' ></table>
 	    </div>
+	    <div id="map_container" style="clear:both; height:500px; width:500px"></div>
 	</div>
  	<script type="text/javascript" src="./app.js"></script>
 </body>
