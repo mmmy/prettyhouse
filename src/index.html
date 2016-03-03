@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="../node_modules/dc/dc.min.css" />
 	<link rel="stylesheet" type="text/css" href="../node_modules/ag-grid/dist/styles/ag-grid.css" />
-	<link rel="stylesheet" type="text/css" href="../node_modules/ag-grid/dist/styles/theme-fresh.css" />
+	<link rel="stylesheet" type="text/css" href="../node_modules/ag-grid/dist/styles/theme-dark.css" />
 	<!-- <link rel="stylesheet" type="text/css" href="../node_modules/datatables.net-dt/css/jquery.dataTables.css" /> -->
 	<!-- <link rel="stylesheet" type="text/css" href="../node_modules/datatables.net-scroller-dt/css/scroller.dataTables.css" /> -->
 	<!-- <link rel="stylesheet" type="text/css" href="./dc.css" /> -->
@@ -25,12 +25,13 @@
 </head>
 <body>
 	<div class="container">
-		<div>
+		<!-- <div>
 	      <label>Name:</label>
 	      <input type="text" ng-model="yourName" placeholder="Enter a name here">
 	      <hr>
 	      <h1>Hello {{yourName}}!</h1>
-	    </div>
+	    </div> -->
+	    <h1>深圳</h1>
 	    <div id='dc-container'>
 	    	<div class="well" style="height:120px">
 	    		<div id="category_title"></div>
@@ -41,10 +42,10 @@
 			<div id='price-dimension'></div>
 			<div id='total-dimension'></div>
 			<div id="average_price" class="well" style="clear:both"></div>
-			<div id='data_table' style="height:500px; clear:both" class="ag-fresh"></div>
+			<div id='data_table' style="height:500px; clear:both" class="ag-dark"></div>
 			<table id='dc_data_table' ></table>
 	    </div>
-	    <div id="map_container" style="clear:both; height:500px; width:500px"></div>
+	    <div id="map_container" style="clear:both; height:500px; width:100%"></div>
 	</div>
  	<script type="text/javascript" src="./app.js"></script>
 </body>

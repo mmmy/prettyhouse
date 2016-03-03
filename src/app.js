@@ -90,7 +90,8 @@ $(function(){
 					.dimension(priceDimension)
 					.group(priceCountGroup)
 					//.innerRadius(50);
-
+		priceChart.xAxis().tickFormat(function(d){ return d*1000+'/平方米'; });
+		priceChart.yAxis().tickFormat(function(d){ return d });
 		totalChart.width(1000)
 					.height(200)
 					.x(d3.scale.linear().domain([0, 150]))
@@ -99,6 +100,7 @@ $(function(){
 					.brushOn(true)
 					.dimension(totalDimension)
 					.group(totalCountGroup);
+		totalChart.xAxis().tickFormat(function(d){ return d*10+'套数' });
 		// var n = 0;
 		// var rrr = function(d){return n++};
 		// window.dataTableChart = dataTableChart.width(1000).height(400)
@@ -115,7 +117,9 @@ $(function(){
 		var onFilter = function(chart, filter){
 			console.log(chart, filter, '11111');
 			//dataSet = priceDimension.top(Infinity);
-			drawTable(priceDimension.top(Infinity));
+			setTimeout(function(){
+				drawTable(priceDimension.top(Infinity));
+			}, 0);
 		};
 		categoryTitleChart.on('filtered', onFilter);
 		categoryPriceChart.on('filtered', onFilter);
@@ -125,26 +129,18 @@ $(function(){
 		totalChart.on('filtered', onFilter);
 	});
 });
-function renderAverage(jsonData){
-	var total=0, count=0;
-	jsonData.forEach(function(e, i){
-		if(e.total && e.price){
-			total += e.total * e.price;
-			count += e.total;
-		}
-	});
-	document.querySelector('#average_price').innerHTML = (total/count).toFixed(0) + ' 元/平方米';
-}
+
 function drawMap(jsonData) {
 	 if(!map){
 	 	map =  new AMap.Map('map_container', {
 	        resizeEnable: true,
-	        center: [116.397428, 39.90923],
+	        //center: [116.397428, 39.90923],
 	        zoom: 13
 	    });    
 	 }
 	 map.remove(markers);
 	 markers = [];
+	 var total=0, count=0;
 	 jsonData.forEach(function(e,i){
 	 	if(e.lng && e.lat){
 	 		markers.push(new AMap.Marker({
@@ -152,13 +148,15 @@ function drawMap(jsonData) {
 	 			position:[e.lng, e.lat]
 	 		}));
 	 	}
+	 	if(e.total && e.price){
+			total += e.total * e.price;
+			count += e.total;
+		}
 	 });
+	document.querySelector('#average_price').innerHTML = (total/count).toFixed(0) + ' 元/平方米';
 	 map.setFitView();
 }
 function drawTable (jsonData) {
-	setTimeout(function(){
-		renderAverage(jsonData);	
-	}, 0);
 	setTimeout(function(){
 		drawMap(jsonData);
 	}, 0)
